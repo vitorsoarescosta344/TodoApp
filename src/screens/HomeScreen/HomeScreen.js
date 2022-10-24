@@ -1,9 +1,13 @@
 import {FAB} from '@rneui/base';
+import {useState} from 'react';
 import {FlatList, ScrollView, View} from 'react-native';
+import ModalAddTask from '../../components/ModalAddTask';
 import TaskListItem from '../../components/TaskListItem';
 import Container from '../../layout/Container';
 
 export default function HomeScreen() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <>
       <Container>
@@ -28,11 +32,13 @@ export default function HomeScreen() {
         </View>
       </Container>
       <FAB
-        visible={true}
+        visible={!modalVisible}
         placement="right"
         icon={{name: 'add', color: 'white'}}
         color="#1A84BF"
+        onPress={() => setModalVisible(true)}
       />
+      <ModalAddTask visible={modalVisible} setVisible={setModalVisible} />
     </>
   );
 }
