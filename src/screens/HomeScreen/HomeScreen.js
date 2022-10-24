@@ -38,7 +38,9 @@ export default function HomeScreen() {
                   item={{
                     name: item.name,
                     description: item.description,
+                    status: item.status,
                   }}
+                  index={index}
                 />
               )}
             />

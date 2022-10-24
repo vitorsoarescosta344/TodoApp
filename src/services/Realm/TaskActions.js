@@ -40,3 +40,20 @@ export async function GetTasks() {
 
   return tasks;
 }
+
+export async function UpdateTask({index}) {
+  const realm = await Realm.open({
+    path: 'taskapp',
+    schema: [TaskSchema],
+  });
+
+  const task = realm.objects('Task')[index];
+
+  console.log('taskfilter', task);
+
+  realm.write(() => {
+    task.status = 'completed';
+  });
+
+  realm.close();
+}
