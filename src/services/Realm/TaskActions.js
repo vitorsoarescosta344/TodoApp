@@ -27,3 +27,16 @@ export async function CreateTask({task}) {
     });
   });
 }
+
+export async function GetTasks() {
+  const realm = await Realm.open({
+    path: 'taskapp',
+    schema: [TaskSchema],
+  });
+
+  const tasks = realm.objects('Task');
+
+  console.log('Tasks' + tasks);
+
+  return tasks;
+}

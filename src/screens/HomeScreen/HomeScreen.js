@@ -1,12 +1,26 @@
 import {FAB} from '@rneui/base';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {FlatList, ScrollView, View} from 'react-native';
 import ModalAddTask from '../../components/ModalAddTask';
 import TaskListItem from '../../components/TaskListItem';
 import Container from '../../layout/Container';
+import {GetTasks} from '../../services/Realm/TaskActions';
 
 export default function HomeScreen() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [items, setItems] = useState([]);
+
+  async function GetAllTasksHandler() {
+    const tasks = await GetTasks();
+
+    console.log(tasks);
+
+    setItems(tasks);
+  }
+
+  useEffect(() => {
+    GetAllTasksHandler();
+  }, []);
 
   return (
     <>
@@ -14,16 +28,16 @@ export default function HomeScreen() {
         <View style={{flex: 1}}>
           <View style={{padding: 15}}>
             <FlatList
-              data={[1, 2, 3, 4, 5, 6]}
+              data={items}
+              keyExtractor={item => item._id}
               ItemSeparatorComponent={() => (
                 <View style={{height: 1, backgroundColor: '#D9D9D9'}} />
               )}
-              renderItem={() => (
+              renderItem={({item, index}) => (
                 <TaskListItem
                   item={{
-                    name: 'Task',
-                    description:
-                      'DescritionDescritionDescritionDescritionDescritionDescritionDescritionDescritionDescritionDescritionDescritionDescritionDescritionDescritionDescrition',
+                    name: item.name,
+                    description: item.description,
                   }}
                 />
               )}
