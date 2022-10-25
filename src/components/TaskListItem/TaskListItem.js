@@ -1,17 +1,21 @@
 import {Dialog, Icon} from '@rneui/themed';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {UpdateTask} from '../../services/Realm/TaskActions';
 import textStyles from '../../utils/GlobalStyles/textStyles';
 import CheckBox from '../CheckBox';
 
-export default function TaskListItem({item, index}) {
+export default function TaskListItem({item, onToggleStatus, onDelete}) {
   const [hide, setHide] = useState(true);
   const [dialogVisible, setDialogVisible] = useState(false);
 
-  async function SetTaskCompleted() {
-    await UpdateTask({index: index});
+  async function Delete() {
+    onDelete();
+    setDialogVisible(false);
   }
+
+  useEffect(() => {
+    console.log(item);
+  }, []);
 
   return (
     <View
@@ -25,7 +29,7 @@ export default function TaskListItem({item, index}) {
         <CheckBox
           title={item.name}
           checked={item.status === 'open' ? false : true}
-          onPress={SetTaskCompleted}
+          onPress={onToggleStatus}
         />
         <TouchableOpacity onPress={() => setHide(!hide)}>
           {hide === true ? (
@@ -62,8 +66,11 @@ export default function TaskListItem({item, index}) {
         onBackdropPress={() => setDialogVisible(false)}>
         <Dialog.Title title="Deseja excluir?" />
         <Dialog.Actions>
-          <Dialog.Button title={'Sim'} />
-          <Dialog.Button title={'Cancelar'} />
+          <Dialog.Button title={'Sim'} onPress={() => Delete()} />
+          <Dialog.Button
+            title={'Cancelar'}
+            onPress={() => setDialogVisible(false)}
+          />
         </Dialog.Actions>
       </Dialog>
     </View>

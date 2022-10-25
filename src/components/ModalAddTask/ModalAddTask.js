@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 import {
   ActivityIndicator,
   Modal,
@@ -8,22 +8,26 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {CreateTask} from '../../services/Realm/TaskActions';
+import {TaskRealmContext} from '../../models';
 import textStyles from '../../utils/GlobalStyles/textStyles';
 
-export default function ModalAddTask({visible, setVisible}) {
+const {useRealm} = TaskRealmContext;
+
+export default function ModalAddTask({visible, setVisible, onSubmit}) {
+  const realm = useRealm();
+
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
   const [loading, setLoading] = useState(false);
 
-  async function OnPress(params) {
-    setLoading(true);
-    CreateTask({task: {name, description}}).then(() => {
-      setLoading(false);
-      setVisible(false);
-    });
-  }
+  const handleSubmit = () => {
+    onSubmit(name, description);
+    setName('');
+    setDescription('');
+    setVisible(false);
+  };
+
   return (
     <Modal animationType="slide" transparent visible={visible}>
       <Pressable
@@ -100,7 +104,7 @@ export default function ModalAddTask({visible, setVisible}) {
               </>
             ) : (
               <TouchableOpacity
-                onPress={() => OnPress()}
+                onPress={handleSubmit}
                 style={{
                   height: 40,
                   paddingHorizontal: 30,
