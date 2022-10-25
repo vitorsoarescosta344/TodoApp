@@ -4,10 +4,23 @@ import {View, TextInput, TouchableOpacity, Text} from 'react-native';
 import textStyles from '../../utils/GlobalStyles/textStyles';
 import styles from './styles';
 import {useState} from 'react';
+import {setSignIn} from '../../redux/slices/authSlice';
+import {useDispatch} from 'react-redux';
 
 export default function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
+
+  const handleLogin = () => {
+    const user = {
+      isLoggedIn: false,
+      token: null,
+    };
+
+    dispatch(setSignIn(user));
+  };
 
   return (
     <SafeAreaProvider style={styles.container}>
@@ -46,7 +59,7 @@ export default function LoginScreen({navigation}) {
             }}
           />
         </View>
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
           <Text style={textStyles.textBold}>Entrar</Text>
         </TouchableOpacity>
       </View>

@@ -1,7 +1,7 @@
 import {FAB} from '@rneui/base';
 import {Icon} from '@rneui/base';
 import {useSelector} from 'react-redux';
-import {selectIsLoggedIn} from '../../redux/slices/authSlice';
+import {selectIsLoggedIn, selectToken} from '../../redux/slices/authSlice';
 import {Header as HeaderRNE} from '@rneui/themed';
 import {TouchableOpacity} from 'react-native';
 import {useCallback, useEffect, useMemo, useState} from 'react';
@@ -19,6 +19,11 @@ export default function HomeScreen({navigation}) {
   const [items, setItems] = useState([]);
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const token = useSelector(selectToken);
+
+  useEffect(() => {
+    console.log(isLoggedIn);
+  }, []);
 
   const realm = useRealm();
 

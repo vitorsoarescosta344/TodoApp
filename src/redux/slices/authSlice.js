@@ -10,7 +10,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setSignIn: (state, action) => {
-      state.token = action.payload.email;
+      state.token = action.payload.token;
       state.isLoggedIn = action.payload.isLoggedIn;
     },
     setSignOut: state => {
@@ -23,6 +23,6 @@ const authSlice = createSlice({
 export const {setSignIn, setSignOut} = authSlice.actions;
 
 export const selectIsLoggedIn = state => state.userAuth.isLoggedIn;
-export const selectEmail = state => state.userAuth.email;
+export const selectToken = state => state.userAuth.token;
 
 export default authSlice.reducer;

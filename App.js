@@ -1,4 +1,4 @@
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import {PersistGate} from 'reduxjs-toolkit-persist/integration/react';
 import {NavigationContainer} from '@react-navigation/native';
 import {TaskRealmContext} from './src/models';
