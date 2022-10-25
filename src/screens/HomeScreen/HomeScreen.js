@@ -1,5 +1,7 @@
 import {FAB} from '@rneui/base';
 import {Icon} from '@rneui/base';
+import {useSelector} from 'react-redux';
+import {selectIsLoggedIn} from '../../redux/slices/authSlice';
 import {Header as HeaderRNE} from '@rneui/themed';
 import {TouchableOpacity} from 'react-native';
 import {useCallback, useEffect, useMemo, useState} from 'react';
@@ -15,6 +17,8 @@ const {useQuery, useRealm} = TaskRealmContext;
 export default function HomeScreen({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [items, setItems] = useState([]);
+
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const realm = useRealm();
 
