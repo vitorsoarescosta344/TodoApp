@@ -1,4 +1,7 @@
 import {FAB} from '@rneui/base';
+import {Icon} from '@rneui/base';
+import {Header as HeaderRNE} from '@rneui/themed';
+import {TouchableOpacity} from 'react-native';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {FlatList, ScrollView, View} from 'react-native';
 import ModalAddTask from '../../components/ModalAddTask';
@@ -9,7 +12,7 @@ import {TaskRealmContext} from '../../models';
 
 const {useQuery, useRealm} = TaskRealmContext;
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [items, setItems] = useState([]);
 
@@ -51,6 +54,21 @@ export default function HomeScreen() {
   return (
     <>
       <Container>
+        <HeaderRNE
+          barStyle="default"
+          rightComponent={
+            <>
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <Icon
+                  type="material-community"
+                  name="account-circle"
+                  size={25}
+                  color={'#FFF'}
+                />
+              </TouchableOpacity>
+            </>
+          }
+        />
         <View style={{flex: 1}}>
           <View style={{padding: 15}}>
             <FlatList

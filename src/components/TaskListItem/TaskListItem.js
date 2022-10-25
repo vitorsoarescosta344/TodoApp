@@ -14,10 +14,6 @@ export default function TaskListItem({item, onToggleStatus, onDelete}) {
     setDialogVisible(false);
   }
 
-  useEffect(() => {
-    console.log(item);
-  }, []);
-
   return (
     <View style={styles.container}>
       <View>
