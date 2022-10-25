@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {TaskRealmContext} from '../../models';
 import textStyles from '../../utils/GlobalStyles/textStyles';
+import styles from './styles';
 
 const {useRealm} = TaskRealmContext;
 
@@ -30,41 +31,13 @@ export default function ModalAddTask({visible, setVisible, onSubmit}) {
 
   return (
     <Modal animationType="slide" transparent visible={visible}>
-      <Pressable
-        onPress={() => setVisible(false)}
-        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <View
-          style={{
-            margin: 20,
-            backgroundColor: 'white',
-            borderRadius: 20,
-            paddingVertical: 15,
-            alignItems: 'center',
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 4,
-            elevation: 5,
-            width: '90%',
-          }}>
+      <Pressable onPress={() => setVisible(false)} style={styles.background}>
+        <View style={styles.modalContainer}>
           <Text
             style={[textStyles.textBold, {color: '#000', marginBottom: 20}]}>
             Nova tarefa
           </Text>
-          <View
-            style={{
-              width: '90%',
-              alignSelf: 'center',
-              height: 40,
-              marginBottom: 20,
-              paddingHorizontal: 5,
-              borderWidth: 1,
-              borderColor: '#e5e5e5',
-              borderRadius: 10,
-            }}>
+          <View style={styles.textInputContainer}>
             <TextInput
               placeholder="Nome"
               style={[textStyles.textRegular, {color: '#333'}]}
@@ -76,15 +49,12 @@ export default function ModalAddTask({visible, setVisible, onSubmit}) {
           </View>
 
           <View
-            style={{
-              width: '90%',
-              alignSelf: 'center',
-              height: 100,
-              paddingHorizontal: 5,
-              borderWidth: 1,
-              borderColor: '#e5e5e5',
-              borderRadius: 10,
-            }}>
+            style={[
+              styles.textInputContainer,
+              {
+                height: 100,
+              },
+            ]}>
             <TextInput
               placeholder="Descricao"
               multiline
@@ -105,15 +75,7 @@ export default function ModalAddTask({visible, setVisible, onSubmit}) {
             ) : (
               <TouchableOpacity
                 onPress={handleSubmit}
-                style={{
-                  height: 40,
-                  paddingHorizontal: 30,
-                  backgroundColor: '#1A84BF',
-                  borderRadius: 10,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginTop: 30,
-                }}>
+                style={styles.buttonContainer}>
                 <Text style={textStyles.textBold}>Adicionar</Text>
               </TouchableOpacity>
             )}

@@ -1,10 +1,11 @@
 import {Icon} from '@rneui/themed';
 import {Text, TouchableOpacity, View} from 'react-native';
 import textStyles from '../../utils/GlobalStyles/textStyles';
+import styles from './styles';
 
 export default function CheckBox({title, checked, style, onPress, children}) {
   return (
-    <View style={[{flexDirection: 'row', alignItems: 'center'}]}>
+    <View style={styles.container}>
       <TouchableOpacity onPress={() => onPress()}>
         <Icon
           type="material-community"

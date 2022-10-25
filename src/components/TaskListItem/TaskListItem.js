@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import textStyles from '../../utils/GlobalStyles/textStyles';
 import CheckBox from '../CheckBox';
+import styles from './styles';
 
 export default function TaskListItem({item, onToggleStatus, onDelete}) {
   const [hide, setHide] = useState(true);
@@ -18,13 +19,7 @@ export default function TaskListItem({item, onToggleStatus, onDelete}) {
   }, []);
 
   return (
-    <View
-      style={{
-        paddingVertical: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}>
+    <View style={styles.container}>
       <View>
         <CheckBox
           title={item.name}
@@ -33,21 +28,13 @@ export default function TaskListItem({item, onToggleStatus, onDelete}) {
         />
         <TouchableOpacity onPress={() => setHide(!hide)}>
           {hide === true ? (
-            <Text
-              style={[
-                textStyles.textRegular,
-                {color: '#868686', marginLeft: 35},
-              ]}>
+            <Text style={[textStyles.textRegular, styles.descriptionTextStyle]}>
               {item.description.length > 35
                 ? `${item.description.substring(0, 35)} ...`
                 : item.description}
             </Text>
           ) : (
-            <Text
-              style={[
-                textStyles.textRegular,
-                {color: '#868686', marginLeft: 35},
-              ]}>
+            <Text style={[textStyles.textRegular, styles.descriptionTextStyle]}>
               {item.description}
             </Text>
           )}
