@@ -57,3 +57,18 @@ export async function UpdateTask({index}) {
 
   realm.close();
 }
+
+export async function DeleteTask({index}) {
+  const realm = await Realm.open({
+    path: 'taskapp',
+    schema: [TaskSchema],
+  });
+
+  const task = realm.objects('Task')[index];
+
+  realm.write(() => {
+    realm.delete(task);
+  });
+
+  realm.close();
+}
